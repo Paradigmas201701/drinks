@@ -1,3 +1,10 @@
+%Como usar:
+%No terminal, dentro do swipl, digite: 
+%[drinks].
+%podeFazer(X).
+%incluir(rum).
+%podeFazer(X).
+
 
 %ingrediente(rum).
 ingrediente(acucar).
