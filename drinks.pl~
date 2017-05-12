@@ -1,3 +1,10 @@
+%Como usar:
+%No terminal, dentro do swipl, digite: 
+%[drinks].
+%podeFazer(X).
+%incluir(rum).
+%podeFazer(X).
+
 
 %ingrediente(rum).
 ingrediente(acucar).
@@ -29,6 +36,7 @@ contemTudo(D,[H|T]):- ingrediente(I),pertence(I,[H]),contemTudo(D,T).
 
 %dinks
 
+drinks(D):- receita(D,_).
 drink(margarita).
 drink(mojito).
 drink(cubaLibre).
@@ -37,8 +45,9 @@ drink(pinaColada).
 
 %conteudo dos drinks
 
-conteudo(D):- findall(I,contem(D,I),L).% write(I),nl, fail. --INCOMPLETO
+%conteudo(D):- findall(I,contem(D,I),L), write(L).
 
+conteudo(D):- receita(D,I), write(I).
 contem(margarita,tequila).
 contem(margarita,sal).
 contem(margarita,sucoDeLimao).

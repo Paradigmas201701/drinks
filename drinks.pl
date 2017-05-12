@@ -34,36 +34,10 @@ podeFazer(D):- receita(D,[H|T]), contemTudo(D,[H|T]).
 contemTudo(D,[H|T]):- T=[].
 contemTudo(D,[H|T]):- ingrediente(I),pertence(I,[H]),contemTudo(D,T).
 
-%dinks
+%drinks
 
-drink(margarita).
-drink(mojito).
-drink(cubaLibre).
-drink(pinaColada).
-
+drinks(D):- receita(D,_).
 
 %conteudo dos drinks
 
-conteudo(D):- findall(I,contem(D,I),L).% write(I),nl, fail. --INCOMPLETO
-
-contem(margarita,tequila).
-contem(margarita,sal).
-contem(margarita,sucoDeLimao).
-contem(margarita,licorDeLaranja).
-
-
-contem(mojito,rum).
-contem(mojito,acucar).
-contem(mojito,sucoDeLimao).
-contem(mojito,aguaComGas).
-contem(mojito,hortela).
-
-
-contem(cubaLibre,rum).
-contem(cubaLibre,sucoDeLimao).
-contem(cubaLibre,refrigeranteDeCola).
-
-contem(pinaColada,rum).
-contem(pinaColada,leiteDeCoco).
-contem(pinaColada,sucoDeAbacaxi).
-
+conteudo(D):- receita(D,I), write(I).
