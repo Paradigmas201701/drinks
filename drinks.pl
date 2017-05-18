@@ -1,11 +1,9 @@
 %Como usar:
 %No terminal, dentro do swipl, digite: 
 %[drinks].
-%podeFazer(X).
-%incluir(rum).
-%podeFazer(X).
+%menu.
 
-
+%ingredientes da aplicacao
 ingrediente(rum).
 ingrediente(acucar).
 ingrediente(sucoDeLimao).
@@ -20,14 +18,14 @@ ingrediente(sucoDeAbacaxi).
 ingrediente(vodka).
 ingrediente(limao).
 
-%receitas
-receita(margarita,[tequila,sal,sucoDeLimao,licorDeLaranja]).
-receita(mojito,[rum,acucar,sucoDeLimao,aguaComGas,hortela]).
-receita(cubaLibre,[rum,sucoDeLimao,refrigeranteDeCola]).
-receita(pinaColada,[rum,leiteDeCoco,sucoDeAbacaxi]).
-receita(caipirinha,[vodka,limao]).
+%receitas da aplicacao
+receita(margarita,[tequila,sal,sucoDeLimao,licorDeLaranja,r]).
+receita(mojito,[rum,acucar,sucoDeLimao,aguaComGas,hortela,r]).
+receita(cubaLibre,[rum,sucoDeLimao,refrigeranteDeCola,r]).
+receita(pinaColada,[rum,leiteDeCoco,sucoDeAbacaxi,r]).
+receita(caipirinha,[vodka,limao,r]).
 
-%Manipulacao da lista da receita
+%Manipulacao da lista de receitas
 
 pertence(X,[X|_]).
 
@@ -36,15 +34,7 @@ podeFazer(D):- receita(D,[H|T]), contemTudo(D,[H|T]).
 contemTudo(_,[_|T]):- T=[].
 contemTudo(D,[H|T]):- ingredienteDoUsuario(I),pertence(I,[H]),contemTudo(D,T).
 
-%drinks
-
-drinks(D):- receita(D,_).
-
-%conteudo dos drinks
-
-conteudo:- receita(D,I), write(D), write(I), nl, fail.
-
-%usuario
+%letras
 
 a:- receberIngredientes.
 b:- ingredienteDoUsuario(I), write(I), nl, fail.
@@ -52,6 +42,10 @@ c:- podeFazer(D), write(D), nl, fail.
 d:- drinks(D), write(D), nl, fail.
 e:- conteudo.
 
+s:-true.
+n:-false.
+
+%menu.
 menu:-
   write('Ola, bem vindo ao suporte a Drinks. Escolha uma opcao:'),nl,
   write('a. - Informar seus ingredientes.'),nl,
@@ -63,12 +57,8 @@ menu:-
   
 
 
-ifThenElse(X,Y,_):-X,!,Y.
-ifThenElse(_,_,Z):-Z.
 
-s:-true.
-n:-false.
-
+%a. -Informar ingredientes
 receberIngredientes:-
   esqueceIngrDoUsr;
   ingrediente(I), 
@@ -78,7 +68,19 @@ receberIngredientes:-
   nl,
   read(X),
   ifThenElse(X,salva(I),fail).
+
+%d. -Lista de drinks
+
+drinks(D):- receita(D,_).
+
+%e. -Conteudo dos drinks
+
+conteudo:- receita(D,I), write(D), write(I), nl, fail.
   
+
+%if
+ifThenElse(X,Y,_):-X,!,Y.
+ifThenElse(_,_,Z):-Z.
 
 %manipula ingrediente do usuario
 salva(I):- memoriza(ingredienteDoUsuario(I)),fail.
